@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCApplication.Models.Cliente;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCApplication.Controllers
 {
@@ -13,12 +9,6 @@ namespace MVCApplication.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //var x = new
-            //{
-            //    Teste = "teste"
-            //};
-            //return Json(x);
-            
             return View();
         }
 
@@ -27,6 +17,11 @@ namespace MVCApplication.Controllers
         [HttpPost]
         public IActionResult Create(ClienteInsertViewModel viewModel)
         {
+            if (ModelState.IsValid)
+            {
+                ModelState.AddModelError()
+            }
+
             return View();
         }
     }
