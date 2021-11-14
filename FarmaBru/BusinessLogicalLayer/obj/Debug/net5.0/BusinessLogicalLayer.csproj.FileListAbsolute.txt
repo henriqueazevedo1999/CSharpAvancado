@@ -1,0 +1,17 @@
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\BusinessLogicalLayer.deps.json
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\BusinessLogicalLayer.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\ref\BusinessLogicalLayer.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\BusinessLogicalLayer.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.csproj.AssemblyReference.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.AssemblyInfoInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.AssemblyInfo.cs
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.csproj.CoreCompileInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\ref\BusinessLogicalLayer.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\Common.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\MetaData.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\Common.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\bin\Debug\net5.0\MetaData.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\BusinessLogicalLayer\obj\Debug\net5.0\BusinessLogicalLayer.csproj.CopyComplete

@@ -125,7 +125,6 @@ C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\bin\Debug\
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
-C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.csproj.AssemblyReference.cache
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.AssemblyInfoInputs.cache
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.AssemblyInfo.cs
@@ -155,3 +154,4 @@ C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.pdb
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.genruntimeconfig.cache
 C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\Razor\Views\Cliente\Create.cshtml.g.cs
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MVCApplication\obj\Debug\net5.0\MVCApplication.csproj.AssemblyReference.cache

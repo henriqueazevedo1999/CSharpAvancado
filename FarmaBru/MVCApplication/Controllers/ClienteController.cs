@@ -19,7 +19,7 @@ namespace MVCApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                ModelState.AddModelError()
+                //ModelState.AddModelError();
             }
 
             return View();

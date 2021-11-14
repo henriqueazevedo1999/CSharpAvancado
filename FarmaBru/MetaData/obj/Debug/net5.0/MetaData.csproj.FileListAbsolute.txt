@@ -1,0 +1,11 @@
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\bin\Debug\net5.0\MetaData.deps.json
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\bin\Debug\net5.0\MetaData.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\bin\Debug\net5.0\ref\MetaData.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\bin\Debug\net5.0\MetaData.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.AssemblyInfoInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.AssemblyInfo.cs
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.csproj.CoreCompileInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\ref\MetaData.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\MetaData\obj\Debug\net5.0\MetaData.pdb
