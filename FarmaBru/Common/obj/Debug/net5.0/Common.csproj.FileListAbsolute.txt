@@ -1,0 +1,11 @@
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\bin\Debug\net5.0\Common.deps.json
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\bin\Debug\net5.0\Common.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\bin\Debug\net5.0\ref\Common.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\bin\Debug\net5.0\Common.pdb
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.AssemblyInfoInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.AssemblyInfo.cs
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.csproj.CoreCompileInputs.cache
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\ref\Common.dll
+C:\Users\Henrique\source\repos\CSharpAvancado\FarmaBru\Common\obj\Debug\net5.0\Common.pdb
