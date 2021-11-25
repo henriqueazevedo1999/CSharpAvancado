@@ -6,6 +6,10 @@ namespace DataAccessLayer
 {
     public class FarmaBruContext : DbContext
     {
+        public FarmaBruContext()
+        {
+        }
+
         public FarmaBruContext(DbContextOptionsBuilder options)
         {
             options.UseSqlServer(connectionString: @"Data Source=(LocalDB)\MSSQLLocalDB;

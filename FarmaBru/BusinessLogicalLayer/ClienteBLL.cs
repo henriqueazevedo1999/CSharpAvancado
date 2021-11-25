@@ -1,6 +1,11 @@
-﻿using BusinessLogicalLayer.Interfaces;
+﻿using BusinessLogicalLayer.Extensions;
+using BusinessLogicalLayer.Interfaces;
+using BusinessLogicalLayer.Validators.ClienteValidator;
 using Common;
+using DataAccessLayer;
+using FluentValidation.Results;
 using MetaData;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,12 +41,25 @@ namespace BusinessLogicalLayer
             throw new NotImplementedException();
         }
 
-        public Response Insert(Cliente t)
+        public Response Insert(Cliente cliente)
         {
-            throw new NotImplementedException();
+            InsertClienteValidator validator = new();
+            ValidationResult result = validator.Validate(cliente);
+
+            Response response = result.ToResponse();
+            if (!response.HasSuccess)
+            {
+                return response;
+            }
+
+            using (FarmaBruContext db = new())
+            {
+                db.Clientes.Add(cliente);
+                db.SaveChanges();
+            }
         }
 
-        public Response Update(Cliente t)
+        public Response Update(Cliente cliente)
         {
             throw new NotImplementedException();
         }

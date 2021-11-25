@@ -3,26 +3,38 @@ using MetaData;
 using BusinessLogicalLayer.Extensions;
 using System;
 
-namespace BusinessLogicalLayer.Validators
+namespace BusinessLogicalLayer.Validators.ClienteValidator
 {
-    internal class ClienteValidator : AbstractValidator<Cliente>
+    internal class ClienteValidator : EntityValidator<Cliente>
     {
-        public ClienteValidator()
+        public void ValidateNome()
         {
             RuleFor(x => x.Nome).NotEmpty().WithMessage("Nome deve ser informado.")
                 .Length(3, 70).WithMessage("Nome deve conter entre 3 e 70 caracteres");
+        }
 
+        public void ValidateCPF()
+        {
             RuleFor(x => x.CPF).NotEmpty().WithMessage("CPF deve ser informado.")
                 .Length(11).WithMessage("CPF deve conter 11 caracteres.")
                 .Must(x => x.IsValidCPF()).WithMessage("CPF inválido.");
+        }
 
+        public void ValidateTelefone()
+        {
             RuleFor(x => x.Telefone).NotEmpty().WithMessage("Telefone deve ser informado.")
                 .Length(9, 15).WithMessage("Telefone deve conter entre 9 e 15 caracteres.");
+        }
 
+        public void ValidateEmail()
+        {
             RuleFor(x => x.Email).NotEmpty().WithMessage("Email deve ser informado.")
                 .Length(10, 100).WithMessage("Email deve conter entre 10 e 100 caracteres.")
                 .EmailAddress().WithMessage("Email inválido.");
+        }
 
+        public void ValidateDataNascimento()
+        { 
             RuleFor(x => x.DataNascimento).GreaterThan(DateTime.Now.AddYears(-110)).WithMessage("Data inválida.");
         }
     }
