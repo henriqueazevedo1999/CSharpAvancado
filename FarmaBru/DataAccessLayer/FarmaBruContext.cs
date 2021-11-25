@@ -1,4 +1,4 @@
-﻿using MetaData;
+﻿using MetaData.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

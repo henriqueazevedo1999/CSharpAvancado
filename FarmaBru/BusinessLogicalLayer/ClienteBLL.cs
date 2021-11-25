@@ -5,6 +5,7 @@ using Common;
 using DataAccessLayer;
 using FluentValidation.Results;
 using MetaData;
+using MetaData.Entities;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,8 @@ namespace BusinessLogicalLayer
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
             }
+
+            return null;
         }
 
         public Response Update(Cliente cliente)

@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
-using MetaData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MetaData.Entities;
 
 namespace BusinessLogicalLayer.Validators
 {

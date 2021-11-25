@@ -1,5 +1,5 @@
 ﻿using Common;
-using MetaData;
+using MetaData.Entities;
 
 namespace BusinessLogicalLayer.Interfaces
 {

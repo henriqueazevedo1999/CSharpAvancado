@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using MetaData;
 using BusinessLogicalLayer.Extensions;
 using System;
+using MetaData.Entities;
 
 namespace BusinessLogicalLayer.Validators.ClienteValidator
 {
