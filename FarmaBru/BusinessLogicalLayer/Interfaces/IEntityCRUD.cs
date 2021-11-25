@@ -1,15 +1,16 @@
 ﻿using Common;
 using MetaData.Entities;
+using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Interfaces
 {
     public interface IEntityCRUD<T> where T: Entity, new()
     {
-        Response Insert(T t);
-        Response Update(T t);
-        Response Delete(int id);
-        Response Deactivate(int id);
-        SingleResponse<T> GetById(int id);
-        DataResponse<T> GetAll();
+        Task<Response> Insert(T t);
+        Task<Response> Update(T t);
+        Task<Response> Delete(int id);
+        Task<Response> Deactivate(int id);
+        Task<SingleResponse<T>> GetById(int id);
+        Task<DataResponse<T>> GetAll();
     }
 }

@@ -17,32 +17,32 @@ namespace BusinessLogicalLayer
 {
     public class ClienteBLL : IClienteService
     {
-        public Response Deactivate(int id)
+        public async Task<Response> Deactivate(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Response Delete(int id)
+        public async Task<Response> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public DataResponse<Cliente> GetAll()
+        public async Task<DataResponse<Cliente>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public SingleResponse<Cliente> GetByCPF(string cpf)
+        public async Task<SingleResponse<Cliente>> GetByCPF(string cpf)
         {
             throw new NotImplementedException();
         }
 
-        public SingleResponse<Cliente> GetById(int id)
+        public async Task<SingleResponse<Cliente>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Response Insert(Cliente cliente)
+        public async Task<Response> Insert(Cliente cliente)
         {
             InsertClienteValidator validator = new();
             ValidationResult result = validator.Validate(cliente);
@@ -56,13 +56,45 @@ namespace BusinessLogicalLayer
             using (FarmaBruContext db = new())
             {
                 db.Clientes.Add(cliente);
-                db.SaveChanges();
-            }
 
-            return null;
+                try
+                {
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        HasSuccess = true,
+                        Message = "Cliente inserido com sucesso!"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    //Erros possíveis:
+                    //1 - Banco fora
+                    //2 - Banco lotado
+                    //3 - Erro de chave única
+                             
+                    if (ex.InnerException.Message.Contains("UQ_CLIENTE_EMAIL"))
+                    {
+                        return new Response
+                        {
+                            HasSuccess = false,
+                            Message = "Email já cadastrado.",
+                            Exception = ex
+                        };
+                    }
+
+                    return new Response
+                    {
+                        HasSuccess = false,
+                        Message = "Erro no banco de dados, contate o administrador",
+                        Exception = ex
+                    };
+
+                }
+            }
         }
 
-        public Response Update(Cliente cliente)
+        public async Task<Response> Update(Cliente cliente)
         {
             throw new NotImplementedException();
         }

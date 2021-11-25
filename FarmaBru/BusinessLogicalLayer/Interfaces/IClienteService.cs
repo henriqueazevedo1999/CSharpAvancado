@@ -1,10 +1,11 @@
 ﻿using Common;
 using MetaData.Entities;
+using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Interfaces
 {
     public interface IClienteService : IEntityCRUD<Cliente>
     {
-        SingleResponse<Cliente> GetByCPF(string cpf);
+        Task<SingleResponse<Cliente>> GetByCPF(string cpf);
     }
 }

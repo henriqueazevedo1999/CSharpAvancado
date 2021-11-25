@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using BusinessLogicalLayer;
+using MetaData.Entities;
+using Microsoft.AspNetCore.Mvc;
 using MVCApplication.Models.Cliente;
+using System.Threading.Tasks;
 
 namespace MVCApplication.Controllers
 {
@@ -15,14 +19,39 @@ namespace MVCApplication.Controllers
         //data annotation / attribute
         //só pode ser acessado por um post
         [HttpPost]
-        public IActionResult Create(ClienteInsertViewModel viewModel)
+        public async Task<IActionResult> Create(ClienteInsertViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            ClienteBLL bll = new ClienteBLL();
+
+            var configuration = new MapperConfiguration(cfg =>
             {
-                //ModelState.AddModelError();
-            }
+                cfg.CreateMap<ClienteInsertViewModel, Cliente>();
+            });
+
+            Cliente cliente = configuration.CreateMapper().Map<Cliente>(viewModel);
+
+            await bll.Insert(cliente);
 
             return View();
         }
     }
+
+    //class CustomAutoMapper<T, W> where W : new()
+    //{
+    //    public static W MapTo(T item)
+    //    {
+    //        W w = new W();
+
+    //        foreach (var property in typeof(T).GetProperties())
+    //        {
+    //            PropertyInfo? propertyTarget = typeof(W).GetProperty(property.Name);
+    //            if (propertyTarget != null)
+    //            {
+    //                propertyTarget.SetValue(w, property.GetValue(item));
+    //            }
+    //        }
+
+    //        return w;
+    //    }
+    //}
 }
