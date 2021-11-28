@@ -16,7 +16,6 @@ namespace BusinessLogicalLayer.Validators.ClienteValidator
         public void ValidateCPF()
         {
             RuleFor(x => x.CPF).NotEmpty().WithMessage("CPF deve ser informado.")
-                .Length(11).WithMessage("CPF deve conter 11 caracteres.")
                 .Must(x => x.IsValidCPF()).WithMessage("CPF inválido.");
         }
 

@@ -24,8 +24,16 @@ namespace DataAccessLayer
             base.OnModelCreating(modelBuilder);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(connectionString: @"Data Source=(LocalDB)\MSSQLLocalDB;
+                                                    AttachDbFilename=C:\Users\Henrique\Documents\FarmaBruDB.mdf;
+                                                    Integrated Security=True;Connect Timeout=5"
+                                , x => x.EnableRetryOnFailure(3));
+            base.OnConfiguring(optionsBuilder);
+        }
+
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
-
     }
 }

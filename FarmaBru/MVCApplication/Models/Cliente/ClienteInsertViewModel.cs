@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCApplication.Models.Cliente
 {
@@ -23,6 +20,8 @@ namespace MVCApplication.Models.Cliente
         [EmailAddress(ErrorMessage = "Email inválido")]
         public string Email { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Data de nascimento deve ser informada")]
         public DateTime DataNascimento { get; set; }
     }

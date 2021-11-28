@@ -1,4 +1,7 @@
-﻿namespace BusinessLogicalLayer.Extensions
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace BusinessLogicalLayer.Extensions
 {
     static class StringExtensions
     {
@@ -36,6 +39,30 @@
 				resto = 11 - resto;
 			digito += resto.ToString();
 			return cpf.EndsWith(digito);
+		}
+
+		public static string Normatize(this string name)
+        {
+			name.Trim();
+			name = Regex.Replace(name, @"\s+", " ");
+			TextInfo textInfo = new CultureInfo("pt-br", false).TextInfo;
+			return textInfo.ToTitleCase(name);
+        }
+
+		public static string RemoveMask(this string field)
+        {
+			return field.Replace(".", "")
+						.Replace(",", "")
+						.Replace(",", "")
+						.Replace("-", "")
+						.Replace("(", "")
+						.Replace(")", "")
+						.Replace("_", "");
+		}
+
+		public static string FormatAsCPF(this string cpf)
+        {
+			return cpf.Insert(3, ".").Insert(7, ".").Insert(11, "-");
 		}
 	}
 }

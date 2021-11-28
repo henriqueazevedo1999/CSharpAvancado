@@ -1,6 +1,7 @@
 ﻿using MetaData.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace DataAccessLayer.Mappings
 {
@@ -17,6 +18,8 @@ namespace DataAccessLayer.Mappings
             builder.Property(x => x.Email).IsRequired().HasMaxLength(100).IsUnicode(false);
             builder.HasIndex(x => x.Email).IsUnique().HasDatabaseName("UQ_CLIENTE_EMAIL");
             builder.Property(x => x.DataNascimento).HasColumnType("date");
+            builder.Property(x => x.Ativo).HasDefaultValue(true);
+            builder.Property(x => x.TimeCreated).HasDefaultValueSql("getdate()");
         }
     }
 }

@@ -1,14 +1,34 @@
 ﻿using AutoMapper;
-using BusinessLogicalLayer;
+using BusinessLogicalLayer.Interfaces;
+using Common;
 using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MVCApplication.Models.Cliente;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MVCApplication.Controllers
 {
     public class ClienteController : Controller
     {
+        private readonly IClienteService _service;
+        private readonly IMapper _mapper;
+
+        public ClienteController(IClienteService service, IMapper mapper)
+        {
+            this._service = service;
+            this._mapper = mapper;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            DataResponse<Cliente> dados = await _service.GetAll();
+            List<ClienteQueryViewModel> data = _mapper.Map<List<ClienteQueryViewModel>>(dados.Data);
+
+            return View(data);
+        }
+
         //o padrão é http get, se n escrever nada esse é o default
         [HttpGet]
         public IActionResult Create()
@@ -21,18 +41,15 @@ namespace MVCApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClienteInsertViewModel viewModel)
         {
-            ClienteBLL bll = new ClienteBLL();
+            Response response = await _service.Insert(_mapper.Map<Cliente>(viewModel);
 
-            var configuration = new MapperConfiguration(cfg =>
+            if (!response.HasSuccess)
             {
-                cfg.CreateMap<ClienteInsertViewModel, Cliente>();
-            });
+                ViewBag.Error = response.Message;
+                return View();
+            }
 
-            Cliente cliente = configuration.CreateMapper().Map<Cliente>(viewModel);
-
-            await bll.Insert(cliente);
-
-            return View();
+            return RedirectToAction("Index");
         }
     }
 
