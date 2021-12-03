@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 **.editorconfig
-# **.cache
+**.cache
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -20,8 +20,8 @@ mono_crash.*
 
 # Build results
 
-# **/.vs/**
-# .vs/**
+**/.vs/**
+.vs/**
 
 **[Dd]ebug/
 [Dd]ebugPublic/
