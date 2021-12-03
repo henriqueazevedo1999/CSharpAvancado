@@ -3,9 +3,9 @@ using BusinessLogicalLayer.Extensions;
 using System;
 using MetaData.Entities;
 
-namespace BusinessLogicalLayer.Validators.ClienteValidator
+namespace BusinessLogicalLayer.Validators.Cliente
 {
-    internal class ClienteValidator : EntityValidator<Cliente>
+    internal class ClienteValidator : EntityValidator<MetaData.Entities.Cliente>
     {
         public void ValidateNome()
         {

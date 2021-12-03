@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +9,8 @@
     <PackageReference Include="automapper.extensions.microsoft.dependencyinjection" Version="8.1.1" />
     <PackageReference Include="InputMask" Version="5.0.6" />
     <PackageReference Include="jQuery.InputMask" Version="5.0.6" />
+    <PackageReference Include="mediatr" Version="9.0.0" />
+    <PackageReference Include="mediatr.extensions.microsoft.dependencyinjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

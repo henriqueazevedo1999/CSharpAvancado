@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Common
+namespace Common.Response
 {
-    public class Response
+    public interface IResponse
     {
         public string Message { get; set; }
         public bool HasSuccess { get; set; }

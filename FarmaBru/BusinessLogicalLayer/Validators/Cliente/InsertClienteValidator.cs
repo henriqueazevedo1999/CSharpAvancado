@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogicalLayer.Validators.ClienteValidator
+namespace BusinessLogicalLayer.Validators.Cliente
 {
     internal class InsertClienteValidator : ClienteValidator
     {

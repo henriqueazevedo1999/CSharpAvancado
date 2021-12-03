@@ -1,10 +1,10 @@
-﻿using Common;
+﻿using Common.Response;
 using MetaData.Entities;
 using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Interfaces
 {
-    public interface IClienteService : IEntityCRUD<Cliente>
+    public interface IClienteService : IRepository<Cliente>
     {
         Task<SingleResponse<Cliente>> GetByCPF(string cpf);
     }

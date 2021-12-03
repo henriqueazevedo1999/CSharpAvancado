@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Common;
+using Common.Response;
 using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MVCApplication.Models.Cliente;
@@ -41,7 +41,7 @@ namespace MVCApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClienteInsertViewModel viewModel)
         {
-            Response response = await _service.Insert(_mapper.Map<Cliente>(viewModel);
+            BaseResponse response = await _service.Insert(_mapper.Map<Cliente>(viewModel));
 
             if (!response.HasSuccess)
             {
