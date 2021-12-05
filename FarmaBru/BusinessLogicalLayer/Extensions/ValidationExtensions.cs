@@ -1,4 +1,4 @@
-﻿using Common.Response;
+﻿using Common;
 using FluentValidation.Results;
 using System.Text;
 
@@ -6,11 +6,11 @@ namespace BusinessLogicalLayer.Extensions
 {
     static class ValidationExtensions
     {
-        public static BaseResponse ToResponse(this ValidationResult result)
+        public static Response ToResponse(this ValidationResult result)
         {
             if (result.IsValid)
             {
-                return new BaseResponse(true, "Validado com sucesso");
+                return new Response(true, "Validado com sucesso");
             }
 
             var sb = new StringBuilder();
@@ -20,7 +20,7 @@ namespace BusinessLogicalLayer.Extensions
                 sb.AppendLine(item.ErrorMessage);
             }
 
-            return new BaseResponse(false, sb.ToString());
+            return new Response(false, sb.ToString());
         }
     }
 }

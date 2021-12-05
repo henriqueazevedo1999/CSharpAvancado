@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using BusinessLogicalLayer.Interfaces;
-using Common.Response;
+using Common;
 using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
 using MVCApplication.Models.Cliente;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+//cache distribuído -> redis
 namespace MVCApplication.Controllers
 {
     public class ClienteController : Controller
@@ -39,6 +40,7 @@ namespace MVCApplication.Controllers
         //data annotation / attribute
         //só pode ser acessado por um post
         [HttpPost]
+        [ResponseCache(VaryByHeader = "None", Duration = 60)] //pesquisar VaryByHeader, poder ser por query
         public async Task<IActionResult> Create(ClienteInsertViewModel viewModel)
         {
             BaseResponse response = await _service.Insert(_mapper.Map<Cliente>(viewModel));
@@ -47,6 +49,47 @@ namespace MVCApplication.Controllers
             {
                 ViewBag.Error = response.Message;
                 return View();
+            }
+
+
+            return RedirectToAction("Index");
+        }
+
+        //meusite.com/Cliente/Edit/Ronaldo
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index");
+            }
+
+            //precisa do id.value pq é nullable
+            SingleResponse<Cliente> response = await this._service.Get(id.Value);
+            //BaseResponse response = await _service.Update(_mapper.Map<Cliente>(viewModel));
+
+            if (response.HasSuccess)
+            {
+                Cliente cliente = response.Item;
+                ClienteUpdateViewModel viewModel = _mapper.Map<ClienteUpdateViewModel>(cliente);
+                return View(viewModel);
+            }
+
+            ViewBag.Error = response.Message;
+            return View(null);
+        }
+
+        //ateção aos hidden fields, pq é possível alterar pelo inspetor
+        [HttpPost]
+        public async Task<IActionResult> Edit(ClienteUpdateViewModel viewModel)
+        {
+            Cliente cliente = _mapper.Map<Cliente>(viewModel);
+            Response response = await _service.Update(cliente);
+
+            if (!response.HasSuccess)
+            {
+                ViewBag.Error = response.Message;
+                return View(viewModel);
             }
 
             return RedirectToAction("Index");

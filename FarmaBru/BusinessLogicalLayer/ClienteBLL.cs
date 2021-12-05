@@ -1,9 +1,8 @@
 ﻿using BusinessLogicalLayer.Extensions;
 using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Validators.Cliente;
-using Common.Response;
+using Common;
 using DataAccessLayer;
-using FluentValidation.Results;
 using MetaData.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,16 +14,14 @@ namespace BusinessLogicalLayer
 {
     public class ClienteBLL : BaseValidator<Cliente>, IClienteService
     {
-        public async Task<SingleResponse<Cliente>> Insert(Cliente cliente)
+        public async Task<Response> Insert(Cliente cliente)
         {
             this.Normatize(cliente);
-            InsertClienteValidator validator = new();
-            ValidationResult result = validator.Validate(cliente);
+            var response = new InsertClienteValidator().Validate(cliente).ToResponse();
 
-            IResponse response = result.ToResponse();
             if (!response.HasSuccess)
             {
-                return new SingleResponse<Cliente>(response);
+                return response;
             }
 
             using (FarmaBruContext db = new())
@@ -33,7 +30,7 @@ namespace BusinessLogicalLayer
                 {
                     await Task.Run(() => db.Clientes.Add(cliente));
                     await Task.Run(() => db.SaveChangesAsync());
-                    return new SingleResponse<Cliente>(true, "Cliente inserido com sucesso!");
+                    return new Response(true, "Cliente inserido com sucesso!");
                 }
                 catch (Exception ex)
                 {
@@ -41,12 +38,12 @@ namespace BusinessLogicalLayer
                     //1 - Banco fora
                     //2 - Banco lotado
                     //3 - Erro de chave única
-                    return new SingleResponse<Cliente>(ex); 
+                    return new Response(ex); 
                 }
             }
         }
 
-        public async Task<SingleResponse<Cliente>> Deactivate(int id)
+        public async Task<Response> Deactivate(int id)
         {
             try
             {
@@ -55,7 +52,7 @@ namespace BusinessLogicalLayer
                 var response = await Task.Run(() => Get(id));
                 if (!response.HasSuccess)
                 {
-                    return response;
+                    return ResponseFactory.CreateFailureResponse(response);
                 }
 
                 Cliente cliente = response.Item;
@@ -63,15 +60,15 @@ namespace BusinessLogicalLayer
 
                 await Task.Run(() => Update(cliente));
                 await db.SaveChangesAsync();
-                return new SingleResponse<Cliente>(true, "Cliente inativado com sucesso!");
+                return new Response(true, "Cliente inativado com sucesso!");
             }
             catch (Exception ex)
             {
-                return new SingleResponse<Cliente>(ex);
+                return new Response(ex);
             }
         }
 
-        public async Task<SingleResponse<Cliente>> Delete(int id)
+        public async Task<Response> Delete(int id)
         {
             try
             {
@@ -80,16 +77,16 @@ namespace BusinessLogicalLayer
                 var response = await Task.Run(() => Get(id));
                 if (!response.HasSuccess)
                 {
-                    return response;
+                    return ResponseFactory.CreateFailureResponse(response);
                 }
 
                 await Task.Run(() => db.Clientes.Remove(response.Item));
                 await db.SaveChangesAsync();
-                return new SingleResponse<Cliente>(true, "Cliente removido com sucesso");
+                return new Response(true, "Cliente removido com sucesso");
             }
             catch (Exception ex)
             {
-                return new SingleResponse<Cliente>(ex);
+                return ResponseFactory.CreateFailureResponse(ex);
             }
         }
 
@@ -131,54 +128,58 @@ namespace BusinessLogicalLayer
             }
             catch (Exception ex)
             {
-                return new SingleResponse<Cliente>(ex);
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex);
             }
         }
 
         public async Task<SingleResponse<Cliente>> Get(int id)
         {
+            if (id <= 0)
+            {
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>("Id inválido.");
+            }
+
             try
             {
                 using var db = new FarmaBruContext();
-                Cliente cliente = await Task.Run(() => db.Clientes.First(c => c.ID == id));
-
-                //null ou exception?
+                //task.run??
+                //se não encontrar por id, vai retornar null
+                Cliente cliente = await db.Clientes.FindAsync(id);
                 if (cliente == null)
                 {
-                    return new SingleResponse<Cliente>(false, "Cliente não encontrado");
+                    return ResponseFactory.CreateNotFoundResponseFailure<Cliente>();
                 }
 
                 ReNormatize(cliente);
-                return new SingleResponse<Cliente>(true, "Cliente selecionado com sucesso");
+                return ResponseFactory.CreateSingleResponseSuccess<Cliente>(cliente);
             }
             catch (Exception ex)
             {
-                return new SingleResponse<Cliente>(ex);
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex);
             }
         }
 
-        public async Task<SingleResponse<Cliente>> Update(Cliente cliente)
+        public async Task<Response> Update(Cliente cliente)
         {
             this.Normatize(cliente);
-            var validator = new InsertClienteValidator();
-            ValidationResult result = validator.Validate(cliente);
+            var response = new UpdateClienteValidator().Validate(cliente).ToResponse();
 
-            IResponse response = result.ToResponse();
             if (!response.HasSuccess)
             {
-                return new SingleResponse<Cliente>(response);
+                return response;
             }
 
             try
             {
                 using var db = new FarmaBruContext();
+                //db.Entry(cliente).State = EntityState.Modified;
                 await Task.Run(() => db.Clientes.Update(cliente));
                 await db.SaveChangesAsync();
-                return new SingleResponse<Cliente>(true, "Cliente atualizado com suceso");
+                return ResponseFactory.CreateSuccessResponse();
             }
             catch (Exception ex)
             {
-                return new SingleResponse<Cliente>(ex);
+                return ResponseFactory.CreateFailureResponse(ex);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Response
+namespace Common
 {
     public class SingleResponse<T> : BaseResponse
     {

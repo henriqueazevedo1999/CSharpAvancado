@@ -10,6 +10,8 @@ namespace MVCApplication.Infrastructure
         {
             this.CreateMap<ClienteInsertViewModel, Cliente>();
             this.CreateMap<Cliente, ClienteQueryViewModel>();
+            this.CreateMap<Cliente, ClienteUpdateViewModel>();
+            this.CreateMap<ClienteUpdateViewModel, Cliente>();
         }
     }
 }

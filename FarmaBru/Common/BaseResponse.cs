@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Common.Response
+namespace Common
 {
     //TODO: Bem ruim assim, ver como melhorar, talvez um factory?
-    public abstract class BaseResponse : IResponse
+    public class BaseResponse : IResponse
     {
         public BaseResponse(bool hasSuccess, string message)
         {
