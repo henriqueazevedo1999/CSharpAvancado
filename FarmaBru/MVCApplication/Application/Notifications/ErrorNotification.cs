@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace MVCApplication.Application.Notifications
+namespace API.Application.Notifications
 {
     public class ErrorNotification : INotification
     {

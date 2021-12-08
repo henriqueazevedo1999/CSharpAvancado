@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 
-namespace MVCApplication
+namespace API
 {
     public class Startup
     {

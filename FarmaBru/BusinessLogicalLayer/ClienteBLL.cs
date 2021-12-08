@@ -14,14 +14,14 @@ namespace BusinessLogicalLayer
 {
     public class ClienteBLL : BaseValidator<Cliente>, IClienteService
     {
-        public async Task<Response> Insert(Cliente cliente)
+        public async Task<SingleResponse<Cliente>> Insert(Cliente cliente)
         {
             this.Normatize(cliente);
             var response = new InsertClienteValidator().Validate(cliente).ToResponse();
 
             if (!response.HasSuccess)
             {
-                return response;
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message);
             }
 
             using (FarmaBruContext db = new())
@@ -30,7 +30,7 @@ namespace BusinessLogicalLayer
                 {
                     await Task.Run(() => db.Clientes.Add(cliente));
                     await Task.Run(() => db.SaveChangesAsync());
-                    return new Response(true, "Cliente inserido com sucesso!");
+                    return ResponseFactory.CreateSingleResponseSuccess<Cliente>(cliente);
                 }
                 catch (Exception ex)
                 {
@@ -38,7 +38,7 @@ namespace BusinessLogicalLayer
                     //1 - Banco fora
                     //2 - Banco lotado
                     //3 - Erro de chave única
-                    return new Response(ex); 
+                    return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex); 
                 }
             }
         }
@@ -159,14 +159,14 @@ namespace BusinessLogicalLayer
             }
         }
 
-        public async Task<Response> Update(Cliente cliente)
+        public async Task<SingleResponse<Cliente>> Update(Cliente cliente)
         {
             this.Normatize(cliente);
             var response = new UpdateClienteValidator().Validate(cliente).ToResponse();
 
             if (!response.HasSuccess)
             {
-                return response;
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message);
             }
 
             try
@@ -175,11 +175,11 @@ namespace BusinessLogicalLayer
                 //db.Entry(cliente).State = EntityState.Modified;
                 await Task.Run(() => db.Clientes.Update(cliente));
                 await db.SaveChangesAsync();
-                return ResponseFactory.CreateSuccessResponse();
+                return ResponseFactory.CreateSingleResponseSuccess(cliente);
             }
             catch (Exception ex)
             {
-                return ResponseFactory.CreateFailureResponse(ex);
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex);
             }
         }
 

@@ -3,12 +3,12 @@ using BusinessLogicalLayer.Interfaces;
 using Common;
 using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
-using MVCApplication.Models.Cliente;
+using API.Models.Cliente;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 //cache distribuído -> redis
-namespace MVCApplication.Controllers
+namespace API.Controllers
 {
     public class ClienteController : Controller
     {

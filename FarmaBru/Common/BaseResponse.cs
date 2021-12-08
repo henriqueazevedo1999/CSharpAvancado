@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Common
 {
     //TODO: Bem ruim assim, ver como melhorar, talvez um factory?
     public class BaseResponse : IResponse
     {
+        private readonly List<string> messages = new List<string>();
+
+        protected BaseResponse()
+        {
+        }
+
         public BaseResponse(bool hasSuccess, string message)
         {
             this.HasSuccess = hasSuccess;
@@ -21,6 +29,13 @@ namespace Common
         public string Message { get; set; }
         public bool HasSuccess { get; set; }
         public Exception Exception { get; set; }
+        public IEnumerable<string> Errors
+        {
+            get
+            {
+                return new ReadOnlyCollection<string>(messages);
+            }
+        }
 
         private string GetExceptionMessage()
         {
@@ -35,6 +50,12 @@ namespace Common
             }
 
             return "Erro no banco de dados, contate o administrador";
+        }
+
+        public BaseResponse AddError(string message)
+        {
+            messages.Add(message);
+            return this;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MetaData.Entities;
-using MVCApplication.Models.Cliente;
+using API.Models.Cliente;
 
-namespace MVCApplication.Infrastructure
+namespace API.Infrastructure
 {
     public class AutoMapperGenericProfiler : Profile
     {

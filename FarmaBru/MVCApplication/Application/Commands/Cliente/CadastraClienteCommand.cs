@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace MVCApplication.Application.Commands.Cliente
+namespace API.Application.Commands.Cliente
 {
     public class CadastraClienteCommand : IRequest<string>
     {

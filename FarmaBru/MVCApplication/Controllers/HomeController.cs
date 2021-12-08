@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MVCApplication.Models;
+using API.Models;
 using System.Diagnostics;
 
-namespace MVCApplication.Controllers
+namespace API.Controllers
 {
     public class HomeController : Controller
     {

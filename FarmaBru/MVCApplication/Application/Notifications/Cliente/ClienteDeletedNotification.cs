@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace MVCApplication.Application.Notifications.Cliente
+namespace API.Application.Notifications.Cliente
 {
     public class ClienteDeletedNotification : INotification
     {

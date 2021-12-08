@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
 using BusinessLogicalLayer.Extensions;
-using System;
-using MetaData.Entities;
 
-namespace BusinessLogicalLayer.Validators.Cliente
+namespace API.Application.Commands
 {
-    public class ClienteValidator : EntityValidator<MetaData.Entities.Cliente>
+    public class ClienteValidator : AbstractValidator<CadastraCommand>
     {
         public void ValidateNome()
         {

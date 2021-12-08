@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace BusinessLogicalLayer.Extensions
 {
-    static class StringExtensions
+    public static class StringExtensions
     {
 		public static bool IsValidCPF(this string cpf)
 		{

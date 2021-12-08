@@ -1,13 +1,13 @@
 ﻿using BusinessLogicalLayer.Interfaces;
 using MediatR;
-using MVCApplication.Application.Commands.Cliente;
-using MVCApplication.Application.Notifications;
-using MVCApplication.Application.Notifications.Cliente;
+using API.Application.Commands.Cliente;
+using API.Application.Notifications;
+using API.Application.Notifications.Cliente;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MVCApplication.Application.Handlers.Cliente
+namespace API.Application.Handlers.Cliente
 {
     public class AlteraClienteCommandHandler : IRequestHandler<AlteraClienteCommand, string>
     {

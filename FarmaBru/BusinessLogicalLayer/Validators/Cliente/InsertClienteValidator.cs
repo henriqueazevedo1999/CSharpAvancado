@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicalLayer.Validators.Cliente
 {
-    internal class InsertClienteValidator : ClienteValidator
+    public class InsertClienteValidator : ClienteValidator
     {
         public InsertClienteValidator()
         {

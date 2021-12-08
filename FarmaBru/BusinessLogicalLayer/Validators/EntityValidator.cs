@@ -3,7 +3,7 @@ using MetaData.Entities;
 
 namespace BusinessLogicalLayer.Validators
 {
-    internal class EntityValidator<T> : AbstractValidator<T> where T : Entity
+    public class EntityValidator<T> : AbstractValidator<T> where T : Entity
     {
         public void ValidateId()
         {

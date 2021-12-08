@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace MVCApplication.Application.Commands.Cliente
+namespace API.Application.Commands.Cliente
 {
     public class ExcluiClienteCommand : IRequest<string>
     {

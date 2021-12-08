@@ -1,6 +1,6 @@
 using System;
 
-namespace MVCApplication.Models
+namespace API.Models
 {
     public class ErrorViewModel
     {
