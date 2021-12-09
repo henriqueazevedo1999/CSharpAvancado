@@ -1,5 +1,7 @@
 ﻿using API.Application.Commands;
 using BusinessLogicalLayer.Interfaces;
+using ClienteAPI.Application.Queries;
+using Common;
 using MediatR;
 using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -27,16 +29,19 @@ public class ClienteController : ControllerBase
     }
 
     // GET: Cliente/1
-    [HttpGet("{id:int:min(1)}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> Get(int? id)
     {
-        if (id == null)
+        var query = new GetByIdQuery { Id = id };
+
+        IResponse response = await _mediatr.Send(query);
+
+        if (response.Errors.Any())
         {
-            // TODO
-            return BadRequest();
+            return BadRequest(response.Errors);
         }
 
-        return Ok(await _repository.Get(id.Value));
+        return Ok(response);
     }
 
     // POST: Cliente/Create
@@ -44,7 +49,7 @@ public class ClienteController : ControllerBase
     //[ValidateAntiForgeryToken] **** O que é isso?
     public async Task<IActionResult> Create(CadastraCommand command)
     {
-        var response = await _mediatr.Send(command);
+        IResponse response = await _mediatr.Send(command);
 
         if (response.Errors.Any())
         {
@@ -58,7 +63,13 @@ public class ClienteController : ControllerBase
     [HttpPut("Edit")]
     public async Task<IActionResult> Edit(AlteraCommand command)
     {
-        var response = await _mediatr.Send(command);
+        IResponse response = await _mediatr.Send(command);
+
+        if (response.Errors.Any())
+        {
+            return BadRequest(response.Errors);
+        }
+
         return Ok(response);
     }
 

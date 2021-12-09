@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Common
 {
@@ -40,6 +41,19 @@ namespace Common
         public static SingleResponse<T> CreateNotFoundResponseFailure<T>()
         {
             return new SingleResponse<T>(false, "Dado não encontrado.");
+        }
+
+        public static DataResponse<T> CreateDataResponseSuccess<T>(List<T> data)
+        {
+            return new DataResponse<T>(true, "Operação realizada com sucesso.")
+            {
+                Data = data
+            };
+        }
+
+        public static DataResponse<T> CreateDataResponseFailure<T>(Exception ex)
+        {
+            return new DataResponse<T>(ex);
         }
     }
 }

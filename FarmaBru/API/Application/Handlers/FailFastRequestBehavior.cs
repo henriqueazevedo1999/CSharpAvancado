@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ClienteAPI.Application.Handlers;
 
-public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse> where TResponse : Response
+public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse> where TResponse : IResponse, new()
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -18,18 +18,18 @@ public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TR
     {
         var failures = _validators.Select(v => v.Validate(request)).SelectMany(result => result.Errors).Where(f => f != null).ToList();
 
-        return failures.Any() ? Errors(failures) : next();
+        return failures.Any() ? Errors(failures) : next(); 
     }
 
     private static Task<TResponse> Errors(List<ValidationFailure> failures)
     {
-        var response = new Response();
+        var response = new TResponse();
 
         foreach (var failure in failures)
         {
             response.AddError(failure.ErrorMessage);
         }
 
-        return Task.FromResult(response as TResponse);
+        return Task.FromResult(response);
     }
 }

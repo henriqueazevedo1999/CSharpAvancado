@@ -2,8 +2,12 @@
 
 namespace Common
 {
-    public class SingleResponse<T> : BaseResponse
+    public class SingleResponse<T> : BaseResponse, IResponse
     {
+        public SingleResponse() : base()
+        {
+        }
+
         public SingleResponse(IResponse response) : this(response.HasSuccess, response.Message)
         {
         }

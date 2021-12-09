@@ -24,22 +24,25 @@ namespace BusinessLogicalLayer
                 return ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message);
             }
 
-            using (FarmaBruContext db = new())
+            try
             {
-                try
+                using (FarmaBruContext db = new())
                 {
                     await Task.Run(() => db.Clientes.Add(cliente));
                     await Task.Run(() => db.SaveChangesAsync());
-                    return ResponseFactory.CreateSingleResponseSuccess<Cliente>(cliente);
                 }
-                catch (Exception ex)
-                {
-                    //Erros possíveis:
-                    //1 - Banco fora
-                    //2 - Banco lotado
-                    //3 - Erro de chave única
-                    return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex); 
-                }
+
+                ReNormatize(cliente);
+
+                return ResponseFactory.CreateSingleResponseSuccess<Cliente>(cliente);
+            }
+            catch (Exception ex)
+            {
+                //Erros possíveis:
+                //1 - Banco fora
+                //2 - Banco lotado
+                //3 - Erro de chave única
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex);
             }
         }
 
@@ -47,8 +50,6 @@ namespace BusinessLogicalLayer
         {
             try
             {
-                using var db = new FarmaBruContext();
-
                 var response = await Task.Run(() => Get(id));
                 if (!response.HasSuccess)
                 {
@@ -59,7 +60,6 @@ namespace BusinessLogicalLayer
                 cliente.Ativo = false;
 
                 await Task.Run(() => Update(cliente));
-                await db.SaveChangesAsync();
                 return new Response(true, "Cliente inativado com sucesso!");
             }
             catch (Exception ex)
@@ -72,16 +72,18 @@ namespace BusinessLogicalLayer
         {
             try
             {
-                using var db = new FarmaBruContext();
-                
+
                 var response = await Task.Run(() => Get(id));
                 if (!response.HasSuccess)
                 {
                     return ResponseFactory.CreateFailureResponse(response);
                 }
 
-                await Task.Run(() => db.Clientes.Remove(response.Item));
-                await db.SaveChangesAsync();
+                using (var db = new FarmaBruContext())
+                {
+                    await Task.Run(() => db.Clientes.Remove(response.Item));
+                    await db.SaveChangesAsync();
+                }
                 return new Response(true, "Cliente removido com sucesso");
             }
             catch (Exception ex)
@@ -94,37 +96,47 @@ namespace BusinessLogicalLayer
         {
             try
             {
-                using FarmaBruContext db = new FarmaBruContext();
-                List<Cliente> clientes = await Task.Run(() => db.Clientes.Where(c => c.Ativo).ToListAsync());
+                List<Cliente> clientes;
 
-                //var query = db.Clientes.Select(c => new
-                //{
-                //    Nome = c.Nome,
-                //    Data = c.DataNascimento
-                //});
+                using (FarmaBruContext db = new FarmaBruContext())
+                {
+                    clientes = await Task.Run(() => db.Clientes.Where(c => c.Ativo).ToListAsync());
+                }
 
                 clientes.ForEach(cliente => this.ReNormatize(cliente));
 
-                return new DataResponse<Cliente>(true, "Dados selecionados com sucesso")
-                {
-                    Data = clientes
-                };
+                return ResponseFactory.CreateDataResponseSuccess(clientes);
             }
             catch (Exception ex)
             {
-                return new DataResponse<Cliente>(ex);
+                return ResponseFactory.CreateDataResponseFailure<Cliente>(ex);
             }
         }
 
         public async Task<SingleResponse<Cliente>> GetByCPF(string cpf)
         {
+            cpf = cpf.RemoveMask();
+
+            if (!cpf.IsValidCPF())
+            {
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>("CPF inválido.");
+            }
+
             try
             {
-                using FarmaBruContext db = new FarmaBruContext();
-                Cliente cliente = await Task.Run(() => db.Clientes.First(c => c.CPF == cpf));
-                ReNormatize(cliente);
+                Cliente cliente;
+                using (FarmaBruContext db = new FarmaBruContext())
+                {
+                    cliente = await Task.Run(() => db.Clientes.First(c => c.CPF == cpf));
+                }
 
-                return new SingleResponse<Cliente>(true, "Cliente selecionado com sucesso");
+                if (cliente == null)
+                {
+                    return ResponseFactory.CreateNotFoundResponseFailure<Cliente>();
+                }
+
+                ReNormatize(cliente);
+                return ResponseFactory.CreateSingleResponseSuccess(cliente);
             }
             catch (Exception ex)
             {
@@ -141,17 +153,22 @@ namespace BusinessLogicalLayer
 
             try
             {
-                using var db = new FarmaBruContext();
+                Cliente cliente;
+
                 //task.run??
                 //se não encontrar por id, vai retornar null
-                Cliente cliente = await db.Clientes.FindAsync(id);
+                using (var db = new FarmaBruContext())
+                {
+                    cliente = await db.Clientes.FindAsync(id);
+                }
+
                 if (cliente == null)
                 {
                     return ResponseFactory.CreateNotFoundResponseFailure<Cliente>();
                 }
 
                 ReNormatize(cliente);
-                return ResponseFactory.CreateSingleResponseSuccess<Cliente>(cliente);
+                return ResponseFactory.CreateSingleResponseSuccess(cliente);
             }
             catch (Exception ex)
             {
@@ -171,10 +188,11 @@ namespace BusinessLogicalLayer
 
             try
             {
-                using var db = new FarmaBruContext();
-                //db.Entry(cliente).State = EntityState.Modified;
-                await Task.Run(() => db.Clientes.Update(cliente));
-                await db.SaveChangesAsync();
+                using (var db = new FarmaBruContext())
+                {
+                    await Task.Run(() => db.Clientes.Update(cliente));
+                    await db.SaveChangesAsync();
+                }
                 return ResponseFactory.CreateSingleResponseSuccess(cliente);
             }
             catch (Exception ex)

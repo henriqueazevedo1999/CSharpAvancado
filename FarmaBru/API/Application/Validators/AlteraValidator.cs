@@ -1,11 +1,20 @@
 ﻿using FluentValidation;
 using BusinessLogicalLayer.Extensions;
-using System;
+using System.Linq.Expressions;
 
-namespace BusinessLogicalLayer.Validators.Cliente
+namespace API.Application.Commands
 {
-    public class ClienteValidator : EntityValidator<MetaData.Entities.Cliente>
+    public class AlteraValidator : AbstractValidator<CadastraCommand>
     {
+        public AlteraValidator()
+        {
+            this.ValidateNome();
+            this.ValidateCPF();
+            this.ValidateTelefone();
+            this.ValidateEmail();
+            this.ValidateDataNascimento();
+        }
+
         public void ValidateNome()
         {
             RuleFor(x => x.Nome).NotEmpty().WithMessage("Nome deve ser informado.")

@@ -9,7 +9,7 @@ namespace Common
     {
         private readonly List<string> messages = new List<string>();
 
-        protected BaseResponse()
+        public BaseResponse()
         {
         }
 
@@ -24,6 +24,7 @@ namespace Common
             this.Exception = ex;
             this.HasSuccess = false;
             this.Message = GetExceptionMessage();
+            this.AddError(Message);
         }
 
         public string Message { get; set; }

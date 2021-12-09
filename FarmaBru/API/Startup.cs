@@ -1,10 +1,12 @@
 ﻿using API.Application.Commands;
+using API.Application.Validators;
 using BusinessLogicalLayer;
 using BusinessLogicalLayer.Interfaces;
 using ClienteAPI.Application.Handlers;
 using FluentValidation;
 using MediatR;
 using MetaData.Entities;
+using System.Reflection;
 
 namespace ClienteAPI;
 
@@ -21,8 +23,8 @@ public class Startup
     {
         services.AddControllers();
         services.AddSwaggerGen();
-        services.AddSingleton<IRepository<Cliente>, ClienteBLL>();
         AddMediatr(services);
+        services.AddSingleton<IRepository<Cliente>, ClienteBLL>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,16 +50,17 @@ public class Startup
 
     private static void AddMediatr(IServiceCollection services)
     {
-        //const string applicationAssemblyName = "BusinessLogicalLayer";
-        //var assembly = AppDomain.CurrentDomain.Load(applicationAssemblyName);
+        // Add all the assemblies to MediatR
+        services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 
-        //AssemblyScanner
-        //    .FindValidatorsInAssembly(assembly)
-        //    .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
+        // For all the validators, register them with dependency injection as scoped
+        AssemblyScanner.FindValidatorsInAssembly(typeof(Startup).Assembly)
+          .ForEach(item => services.AddScoped(item.InterfaceType, item.ValidatorType));
 
+        //var validators = AssemblyScanner.FindValidatorsInAssembly(typeof(BusinessLogicalLayer.ClienteBLL).Assembly).ToList();
+        //services.AddScoped(typeof(IValidator<CadastraCommand>), typeof(AlteraValidator));
 
-        services.AddMediatR(typeof(Startup));
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
-        services.AddScoped(typeof(IValidator<CadastraCommand>), typeof(ClienteValidator));
+        // Add the custome pipeline validation to DI
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));
     }
 }
