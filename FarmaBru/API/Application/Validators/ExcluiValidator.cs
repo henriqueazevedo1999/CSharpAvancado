@@ -1,19 +1,18 @@
-﻿using FluentValidation;
-using BusinessLogicalLayer.Extensions;
-using API.Application.Commands;
+﻿using ClienteAPI.Application.Commands;
+using FluentValidation;
 
-namespace API.Application.Validators
+namespace ClienteAPI.Application.Validators;
+
+public class ExcluiValidator : AbstractValidator<ExcluiCommand>
 {
-    public class ExcluiValidator : AbstractValidator<ExcluiCommand>
+    public ExcluiValidator()
     {
-        public ExcluiValidator()
-        {
-            this.ValidateId();
-        }
+        this.ValidateId();
+    }
 
-        public void ValidateId()
-        {
-            RuleFor(x => x.Id).GreaterThan(0).WithMessage("ID não informado.");
-        }
+    public void ValidateId()
+    {
+        RuleFor(x => x.Id).NotNull().WithMessage("ID informado inválido")
+            .GreaterThan(0).WithMessage("ID deve ser maior que zero.");
     }
 }

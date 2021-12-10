@@ -1,15 +1,16 @@
 ﻿using BusinessLogicalLayer.Interfaces;
+using ClienteAPI.Application.Commands;
+using ClienteAPI.Application.Notifications;
 using MediatR;
-using API.Application.Commands;
-using API.Application.Notifications;
-using Common;
+using MetaData.Entities;
+using Utils.Response;
 
-namespace API.Application.Handlers;
+namespace ClienteAPI.Application.Handlers;
 
-public class AlteraCommandHandler : IRequestHandler<AlteraCommand, SingleResponse<MetaData.Entities.Cliente>>
+public class AlteraCommandHandler : IRequestHandler<AlteraCommand, SingleResponse<Cliente>>
 {
     private readonly IMediator _mediator;
-    private readonly IRepository<MetaData.Entities.Cliente> _repository;
+    private readonly IRepository<Cliente> _repository;
 
     public AlteraCommandHandler(IMediator mediator, IRepository<MetaData.Entities.Cliente> repository)
     {
@@ -17,9 +18,9 @@ public class AlteraCommandHandler : IRequestHandler<AlteraCommand, SingleRespons
         _repository = repository;
     }
 
-    public async Task<SingleResponse<MetaData.Entities.Cliente>> Handle(AlteraCommand request, CancellationToken cancellationToken)
+    public async Task<SingleResponse<Cliente>> Handle(AlteraCommand request, CancellationToken cancellationToken)
     {
-        var cliente = new MetaData.Entities.Cliente
+        var cliente = new Cliente
         {
             ID = request.Id,
             Nome = request.Nome,
@@ -36,7 +37,7 @@ public class AlteraCommandHandler : IRequestHandler<AlteraCommand, SingleRespons
             if (!response.HasSuccess)
             {
                 await _mediator.Publish(new ChangedNotification(cliente, false));
-                return await Task.FromResult(ResponseFactory.CreateSingleResponseFailure<MetaData.Entities.Cliente>(response.Message));
+                return await Task.FromResult(ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message));
             }
 
             await _mediator.Publish(new ChangedNotification(cliente, true));
@@ -47,7 +48,7 @@ public class AlteraCommandHandler : IRequestHandler<AlteraCommand, SingleRespons
             //TODO: Precisa desses 2?
             await _mediator.Publish(new ChangedNotification(cliente, false));
             await _mediator.Publish(new ErrorNotification(ex));
-            return await Task.FromResult(ResponseFactory.CreateSingleResponseFailure<MetaData.Entities.Cliente>(ex));
+            return await Task.FromResult(ResponseFactory.CreateSingleResponseFailure<Cliente>(ex));
         }
     }
 }

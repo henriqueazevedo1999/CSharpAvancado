@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Models.Cliente
+namespace MVCApplication.Models.Cliente
 {
     public class ClienteQueryViewModel
     {

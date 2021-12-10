@@ -1,7 +1,7 @@
-﻿using Common;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
+using Utils.Response;
 
 namespace ClienteAPI.Application.Handlers;
 

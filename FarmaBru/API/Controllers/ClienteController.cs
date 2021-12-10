@@ -1,10 +1,8 @@
-﻿using API.Application.Commands;
-using BusinessLogicalLayer.Interfaces;
+﻿using ClienteAPI.Application.Commands;
 using ClienteAPI.Application.Queries;
-using Common;
 using MediatR;
-using MetaData.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Utils.Controller;
 
 namespace ClienteAPI.Controllers;
 
@@ -13,77 +11,48 @@ namespace ClienteAPI.Controllers;
 public class ClienteController : ControllerBase
 {
     private readonly IMediator _mediatr;
-    private readonly IRepository<Cliente> _repository;
 
-    public ClienteController(IMediator mediatr, IRepository<Cliente> repository)
+    public ClienteController(IMediator mediatr)
     {
         _mediatr = mediatr;
-        _repository = repository;
     }
 
     // GET: Cliente
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        return Ok(await _repository.GetAll());
+        var command = new GetAllQuery();
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 
     // GET: Cliente/1
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int? id)
+    public async Task<IActionResult> Get(int id)
     {
-        var query = new GetByIdQuery { Id = id };
-
-        IResponse response = await _mediatr.Send(query);
-
-        if (response.Errors.Any())
-        {
-            return BadRequest(response.Errors);
-        }
-
-        return Ok(response);
+        var command = new GetByIdQuery { Id = id };
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 
     // POST: Cliente/Create
     [HttpPost("Create")]
-    //[ValidateAntiForgeryToken] **** O que é isso?
     public async Task<IActionResult> Create(CadastraCommand command)
     {
-        IResponse response = await _mediatr.Send(command);
-
-        if (response.Errors.Any())
-        {
-            return BadRequest(response.Errors);
-        }
-
-        return Ok(response);
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 
     // GET: Cliente/Edit
     [HttpPut("Edit")]
     public async Task<IActionResult> Edit(AlteraCommand command)
     {
-        IResponse response = await _mediatr.Send(command);
-
-        if (response.Errors.Any())
-        {
-            return BadRequest(response.Errors);
-        }
-
-        return Ok(response);
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 
     // POST: Cliente/Deactivate/1
-    [HttpPost("Deactivate/{id:int:min(1)}")]
+    [HttpPost("Deactivate/{id}")]
     //[ValidateAntiForgeryToken]
-    public async Task<IActionResult> Deactivate(int? id)
+    public async Task<IActionResult> Deactivate(int id)
     {
-        if (id == null)
-        {
-            return BadRequest();
-        }
-
-        var response = await _mediatr.Send(id.Value);
-        return Ok(response);
+        var command = new DeactivateCommand { Id = id };
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace API.Application.Notifications;
+namespace ClienteAPI.Application.Notifications;
 
 public class DeletedNotification : INotification
 {

@@ -1,6 +1,4 @@
-﻿using API.Application.Commands;
-using API.Application.Validators;
-using BusinessLogicalLayer;
+﻿using BusinessLogicalLayer;
 using BusinessLogicalLayer.Interfaces;
 using ClienteAPI.Application.Handlers;
 using FluentValidation;
@@ -21,6 +19,11 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        //services.AddMvc(options =>
+        //{
+        //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+        //});
+
         services.AddControllers();
         services.AddSwaggerGen();
         AddMediatr(services);
@@ -56,9 +59,6 @@ public class Startup
         // For all the validators, register them with dependency injection as scoped
         AssemblyScanner.FindValidatorsInAssembly(typeof(Startup).Assembly)
           .ForEach(item => services.AddScoped(item.InterfaceType, item.ValidatorType));
-
-        //var validators = AssemblyScanner.FindValidatorsInAssembly(typeof(BusinessLogicalLayer.ClienteBLL).Assembly).ToList();
-        //services.AddScoped(typeof(IValidator<CadastraCommand>), typeof(AlteraValidator));
 
         // Add the custome pipeline validation to DI
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(FailFastRequestBehavior<,>));

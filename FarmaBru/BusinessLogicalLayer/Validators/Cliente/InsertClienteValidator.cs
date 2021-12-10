@@ -1,14 +1,13 @@
-﻿namespace BusinessLogicalLayer.Validators.Cliente
+﻿namespace BusinessLogicalLayer.Validators.Cliente;
+
+public class InsertClienteValidator : ClienteValidator
 {
-    public class InsertClienteValidator : ClienteValidator
+    public InsertClienteValidator()
     {
-        public InsertClienteValidator()
-        {
-            base.ValidateNome();
-            base.ValidateCPF();
-            base.ValidateDataNascimento();  
-            base.ValidateEmail();   
-            base.ValidateTelefone();    
-        }
+        base.ValidateNome();
+        base.ValidateCPF();
+        base.ValidateDataNascimento();  
+        base.ValidateEmail();   
+        base.ValidateTelefone();    
     }
 }

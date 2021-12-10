@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Common;
+﻿namespace Utils.Response;
 
 public class Response : BaseResponse
 {

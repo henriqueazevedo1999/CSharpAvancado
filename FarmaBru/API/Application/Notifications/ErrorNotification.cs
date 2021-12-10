@@ -1,8 +1,7 @@
-﻿using Common;
-using MediatR;
-using System;
+﻿using MediatR;
+using Utils.Response;
 
-namespace API.Application.Notifications;
+namespace ClienteAPI.Application.Notifications;
 
 public class ErrorNotification : INotification
 {

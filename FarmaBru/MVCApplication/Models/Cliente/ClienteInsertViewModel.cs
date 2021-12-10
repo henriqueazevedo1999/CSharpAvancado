@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace API.Models.Cliente
+namespace MVCApplication.Models.Cliente
 {
     //model: classe usada para desenhar a tela
     //contém o que se "vê na interface"

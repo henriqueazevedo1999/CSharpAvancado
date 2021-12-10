@@ -1,11 +1,10 @@
-﻿using Common;
-using MetaData.Entities;
+﻿using MetaData.Entities;
 using System.Threading.Tasks;
+using Utils.Response;
 
-namespace BusinessLogicalLayer.Interfaces
+namespace BusinessLogicalLayer.Interfaces;
+
+public interface IClienteService : IRepository<Cliente>
 {
-    public interface IClienteService : IRepository<Cliente>
-    {
-        Task<SingleResponse<Cliente>> GetByCPF(string cpf);
-    }
+    Task<SingleResponse<Cliente>> GetByCPF(string cpf);
 }

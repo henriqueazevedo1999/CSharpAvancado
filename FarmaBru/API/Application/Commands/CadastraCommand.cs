@@ -1,8 +1,8 @@
-﻿using Common;
-using MediatR;
+﻿using MediatR;
 using MetaData.Entities;
+using Utils.Response;
 
-namespace API.Application.Commands;
+namespace ClienteAPI.Application.Commands;
 
 public class CadastraCommand : IRequest<SingleResponse<Cliente>>
 {

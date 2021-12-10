@@ -1,9 +1,9 @@
-﻿using API.Application.Notifications;
-using BusinessLogicalLayer.Interfaces;
+﻿using BusinessLogicalLayer.Interfaces;
+using ClienteAPI.Application.Notifications;
 using ClienteAPI.Application.Queries;
-using Common;
 using MediatR;
 using MetaData.Entities;
+using Utils.Response;
 
 namespace ClienteAPI.Application.Handlers;
 
@@ -22,7 +22,7 @@ public class GetByIdQueryHandler : IRequestHandler<GetByIdQuery, SingleResponse<
     {
         try
         {
-            var response = await _repository.Get(request.Id.Value);
+            var response = await _repository.Get(request.Id);
             if (!response.HasSuccess)
             {
                 return await Task.FromResult(ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message));

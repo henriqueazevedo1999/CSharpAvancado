@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using MetaData.Entities;
+using Utils.Validators;
 
-namespace BusinessLogicalLayer.Validators
+namespace BusinessLogicalLayer.Validators;
+
+public class EntityValidator<T> : AbstractValidator<T> where T : Entity
 {
-    public class EntityValidator<T> : AbstractValidator<T> where T : Entity
+    public void ValidateId()
     {
-        public void ValidateId()
-        {
-            RuleFor(x => x.ID).GreaterThan(0).WithMessage("ID não informado.");
-        }
+        RuleFor(x => x.ID).SetValidator(new IdValidator());
     }
 }

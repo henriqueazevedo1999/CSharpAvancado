@@ -1,7 +1,5 @@
-﻿using BusinessLogicalLayer.Extensions;
-using BusinessLogicalLayer.Interfaces;
+﻿using BusinessLogicalLayer.Interfaces;
 using BusinessLogicalLayer.Validators.Cliente;
-using Common;
 using DataAccessLayer;
 using MetaData.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Utils.Extensions;
+using Utils.Response;
 
 namespace BusinessLogicalLayer
 {
@@ -46,25 +46,25 @@ namespace BusinessLogicalLayer
             }
         }
 
-        public async Task<Response> Deactivate(int id)
+        public async Task<SingleResponse<Cliente>> Deactivate(int id)
         {
             try
             {
                 var response = await Task.Run(() => Get(id));
                 if (!response.HasSuccess)
                 {
-                    return ResponseFactory.CreateFailureResponse(response);
+                    return ResponseFactory.CreateSingleResponseFailure<Cliente>(response.Message);
                 }
 
                 Cliente cliente = response.Item;
                 cliente.Ativo = false;
 
                 await Task.Run(() => Update(cliente));
-                return new Response(true, "Cliente inativado com sucesso!");
+                return ResponseFactory.CreateSingleResponseSuccess(cliente);
             }
             catch (Exception ex)
             {
-                return new Response(ex);
+                return ResponseFactory.CreateSingleResponseFailure<Cliente>(ex);
             }
         }
 

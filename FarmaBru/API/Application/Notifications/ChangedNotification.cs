@@ -1,19 +1,11 @@
 ﻿using MediatR;
+using MetaData.Entities;
 
-namespace API.Application.Notifications;
+namespace ClienteAPI.Application.Notifications;
 
-public class ChangedNotification : INotification
+public class ChangedNotification : BaseClienteNotification, INotification
 {
-    public ChangedNotification(MetaData.Entities.Cliente cliente, bool ehEfetivado)
+    public ChangedNotification(Cliente cliente, bool ehEfetivado) : base(cliente, ehEfetivado)
     {
-        Id = cliente.ID;
-        Nome = cliente.Nome;
-        CPF = cliente.CPF;
-        EhEfetivado = ehEfetivado;
     }
-
-    public int Id { get; set; }
-    public string Nome { get; set; }
-    public string CPF { get; set; }
-    public bool EhEfetivado { get; set; }
 }

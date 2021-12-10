@@ -1,13 +1,12 @@
-﻿namespace BusinessLogicalLayer.Validators.Cliente
+﻿namespace BusinessLogicalLayer.Validators.Cliente;
+
+internal class UpdateClienteValidator : ClienteValidator
 {
-    internal class UpdateClienteValidator : ClienteValidator
+    public UpdateClienteValidator()
     {
-        public UpdateClienteValidator()
-        {
-            base.ValidateId();
-            base.ValidateNome();
-            base.ValidateEmail();
-            base.ValidateTelefone();
-        }
+        base.ValidateId();
+        base.ValidateNome();
+        base.ValidateEmail();
+        base.ValidateTelefone();
     }
 }

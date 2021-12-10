@@ -1,17 +1,18 @@
 ﻿using BusinessLogicalLayer.Interfaces;
+using ClienteAPI.Application.Commands;
+using ClienteAPI.Application.Notifications;
 using MediatR;
-using API.Application.Notifications;
-using API.Application.Commands;
-using Common;
+using MetaData.Entities;
+using Utils.Response;
 
-namespace API.Application.Handlers.Cliente;
+namespace ClienteAPI.Application.Handlers;
 
 public class DeletaCommandHandler : IRequestHandler<ExcluiCommand, Response>
 {
     private readonly IMediator _mediator;
-    private readonly IRepository<MetaData.Entities.Cliente> _repository;
+    private readonly IRepository<Cliente> _repository;
 
-    public DeletaCommandHandler(IMediator mediator, IRepository<MetaData.Entities.Cliente> repository)
+    public DeletaCommandHandler(IMediator mediator, IRepository<Cliente> repository)
     {
         _mediator = mediator;
         _repository = repository;

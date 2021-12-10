@@ -1,7 +1,7 @@
-﻿using Common;
-using MediatR;
+﻿using MediatR;
+using Utils.Response;
 
-namespace API.Application.Commands;
+namespace ClienteAPI.Application.Commands;
 
 public class ExcluiCommand : IRequest<Response>
 {
