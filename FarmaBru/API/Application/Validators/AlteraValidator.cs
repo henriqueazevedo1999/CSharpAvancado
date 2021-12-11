@@ -4,7 +4,7 @@ using Utils.Extensions;
 
 namespace ClienteAPI.Application.Validators;
 
-public class AlteraValidator : AbstractValidator<CadastraCommand>
+public class AlteraValidator : AbstractValidator<AlteraCommand>
 {
     public AlteraValidator()
     {

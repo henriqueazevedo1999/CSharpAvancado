@@ -2,6 +2,7 @@
 
 public class DataResponse<T> : BaseResponse
 {
+    public DataResponse() : base() { }
     public DataResponse(bool hasSuccess, string message) : base(hasSuccess, message) { }
     public DataResponse(Exception ex) : base(ex) { }
 

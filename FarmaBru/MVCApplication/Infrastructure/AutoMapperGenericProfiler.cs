@@ -2,16 +2,15 @@
 using MetaData.Entities;
 using MVCApplication.Models.Cliente;
 
-namespace MVCApplication.Infrastructure
+namespace MVCApplication.Infrastructure;
+
+public class AutoMapperGenericProfiler : Profile
 {
-    public class AutoMapperGenericProfiler : Profile
+    public AutoMapperGenericProfiler()
     {
-        public AutoMapperGenericProfiler()
-        {
-            this.CreateMap<ClienteInsertViewModel, Cliente>();
-            this.CreateMap<Cliente, ClienteQueryViewModel>();
-            this.CreateMap<Cliente, ClienteUpdateViewModel>();
-            this.CreateMap<ClienteUpdateViewModel, Cliente>();
-        }
+        this.CreateMap<ClienteInsertViewModel, Cliente>();
+        this.CreateMap<Cliente, ClienteQueryViewModel>();
+        this.CreateMap<Cliente, ClienteUpdateViewModel>();
+        this.CreateMap<ClienteUpdateViewModel, Cliente>();
     }
 }

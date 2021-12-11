@@ -38,11 +38,19 @@
                 <span asp-validation-for="DataNascimento" class="text-danger"></span>
             </div>
             
-            @if (ViewBag.Error != null)
+            @if (ViewBag.Errors != null)
             {
                 <div class="form-group">
-                    <span class="text-danger">@ViewBag.Error</span>
+                @foreach (string error in ViewBag.Errors)
+                {
+                    <span class="text-danger">@error</span>
+                    <br/>
+                    @*@Html.Label(error)*@
+                }
                 </div>
+@*                <div class="form-group">
+                    <span class="text-danger">@ViewBag.Error</span>
+                </div>*@
             }
 
             <div class="form-group">
