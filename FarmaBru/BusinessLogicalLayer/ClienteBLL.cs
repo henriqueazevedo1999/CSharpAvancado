@@ -100,7 +100,7 @@ namespace BusinessLogicalLayer
 
                 using (FarmaBruContext db = new FarmaBruContext())
                 {
-                    clientes = await Task.Run(() => db.Clientes.Where(c => c.Ativo).ToListAsync());
+                    clientes = await Task.Run(() => db.Clientes.ToListAsync());
                 }
 
                 clientes.ForEach(cliente => this.ReNormatize(cliente));

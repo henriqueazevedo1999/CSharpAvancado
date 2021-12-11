@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>ClienteUpdateViewModel</h4>
+<h1>Editar cliente</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -53,12 +51,14 @@
                 </label>
             </div>
 
-            @if (ViewBag.Error != null)
+            @if (ViewBag.Errors != null)
             {
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        @ViewBag.Error
-                    </label>
+                <div class="form-group">
+                @foreach (string error in ViewBag.Errors)
+                {
+                    <span class="text-danger">@error</span>
+                    <br/>
+                }
                 </div>
             }
 

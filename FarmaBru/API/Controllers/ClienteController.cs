@@ -49,10 +49,17 @@ public class ClienteController : ControllerBase
 
     // POST: Cliente/Deactivate/1
     [HttpPost("Deactivate/{id}")]
-    //[ValidateAntiForgeryToken]
     public async Task<IActionResult> Deactivate(int id)
     {
         var command = new DeactivateCommand { Id = id };
+        return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
+    }
+
+    // DELETE: Cliente/Delete/1
+    [HttpDelete("Delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var command = new ExcluiCommand { Id = id };
         return await ControllerHelper.GetResponseAsync(this, _mediatr, command);
     }
 }

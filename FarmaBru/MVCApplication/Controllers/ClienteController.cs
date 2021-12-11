@@ -55,36 +55,24 @@ public class ClienteController : Controller
     [ResponseCache(VaryByHeader = "None", Duration = 60)] //pesquisar VaryByHeader, poder ser por query
     public async Task<IActionResult> Create(ClienteInsertViewModel viewModel)
     {
-        Cliente cliente = _mapper.Map<Cliente>(viewModel);
+        var cliente = _mapper.Map<Cliente>(viewModel);
 
-        //var response = new SingleResponse<Cliente>();
-
-        HttpResponseMessage responseMessage;
+        HttpResponseMessage response;
         using (var client = new HttpClient())
         {
-            responseMessage = await client.PostAsJsonAsync<Cliente>(@"https://localhost:7172/api/Cliente/Create", cliente);
+            response = await client.PostAsJsonAsync<Cliente>(@"https://localhost:7172/api/Cliente/Create", cliente);
         }
 
-        if (!responseMessage.IsSuccessStatusCode)
+        if (!response.IsSuccessStatusCode)
         {
-            var responseErrors = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<string>>();
+            var responseErrors = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
             ViewBag.Errors = responseErrors.ToArray();
             return View();
         }
 
-        //var teste = responseMessage.Content.ReadFromJsonAsync<IEnumerable<string>>().Result.Message;
-
-        //if (!response.HasSuccess)
-        //{
-        //    ViewBag.Error = response.Message;
-        //    return View();
-        //}
-
-
         return RedirectToAction("Index");
     }
 
-    //meusite.com/Cliente/Edit/Ronaldo
     [HttpGet]
     public async Task<IActionResult> Edit(int? id)
     {
@@ -93,33 +81,40 @@ public class ClienteController : Controller
             return RedirectToAction("Index");
         }
 
-        //precisa do id.value pq é nullable
-        //SingleResponse<Cliente> response = await this._service.Get(id.Value);
-        ////BaseResponse response = await _service.Update(_mapper.Map<Cliente>(viewModel));
+        SingleResponse<Cliente> response;
+        using (var client = new HttpClient())
+        {
+            response = await client.GetFromJsonAsync<SingleResponse<Cliente>>(@"https://localhost:7172/api/Cliente/" + id.Value);
+        }
 
-        //if (response.HasSuccess)
-        //{
-        //    Cliente cliente = response.Item;
-        //    ClienteUpdateViewModel viewModel = _mapper.Map<ClienteUpdateViewModel>(cliente);
-        //    return View(viewModel);
-        //}
+        if (!response.HasSuccess)
+        {
+            ViewBag.Errors = response.Errors.ToArray();
+        }
 
-        //ViewBag.Error = response.Message;
-        return View(null);
+        Cliente cliente = response.Item;
+        ClienteUpdateViewModel viewModel = _mapper.Map<ClienteUpdateViewModel>(cliente);
+        return View(viewModel);
     }
 
     //ateção aos hidden fields, pq é possível alterar pelo inspetor
     [HttpPost]
     public async Task<IActionResult> Edit(ClienteUpdateViewModel viewModel)
     {
-        Cliente cliente = _mapper.Map<Cliente>(viewModel);
-        //Response response = await _service.Update(cliente);
+        var cliente = _mapper.Map<Cliente>(viewModel);
 
-        //if (!response.HasSuccess)
-        //{
-        //    ViewBag.Error = response.Message;
-        //    return View(viewModel);
-        //}
+        HttpResponseMessage response;
+        using (var client = new HttpClient())
+        {
+            response = await client.PutAsJsonAsync(@"https://localhost:7172/api/Cliente/Edit", cliente);
+        }
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var responseErrors = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+            ViewBag.Errors = responseErrors.ToArray();
+            return View(viewModel);
+        }
 
         return RedirectToAction("Index");
     }
