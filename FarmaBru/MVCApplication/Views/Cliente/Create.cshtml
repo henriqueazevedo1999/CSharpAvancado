@@ -55,7 +55,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar à lista</a>
 </div>
 
 @section Scripts {
@@ -64,8 +64,18 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
     <script>
         $(document).ready(function () {
-            $("#CPF").mask('000.000.000-00', { reverse: false });
-            //$("#Telefone").mask('(00)00000-0000', { reverse: false });
+            $("#CPF").mask('999.999.999-99', { reverse: false });
+            //$("#Telefone").mask('(99)9999-9999', { reverse: false });
+            var options = 
+            {
+                onKeyPress: function(phone, e, field, options) 
+                {
+                    var masks = ['(00) 0000-00000', '(00) 00000-0000'];
+                    var mask = (phone.length>14) ? masks[1] : masks[0];
+                    $("#Telefone").mask(mask, options);
+                }
+            };
+            $("#Telefone").mask('(00) 0000-00000', options);
         });
     </script>
 }

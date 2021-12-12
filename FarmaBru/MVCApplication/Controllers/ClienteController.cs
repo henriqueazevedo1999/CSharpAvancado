@@ -118,6 +118,30 @@ public class ClienteController : Controller
 
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (!id.HasValue)
+        {
+            return RedirectToAction("Index");
+        }
+
+        SingleResponse<Cliente> response;
+        using (var client = new HttpClient())
+        {
+            response = await client.GetFromJsonAsync<SingleResponse<Cliente>>(@"https://localhost:7172/api/Cliente/" + id.Value);
+        }
+
+        if (!response.HasSuccess)
+        {
+            ViewBag.Errors = response.Errors.ToArray();
+        }
+
+        Cliente cliente = response.Item;
+        ClienteQueryViewModel viewModel = _mapper.Map<ClienteQueryViewModel>(cliente);
+        return View(viewModel);
+    }
 }
 
 //class CustomAutoMapper<T, W> where W : new()
